@@ -23,6 +23,7 @@
   </head>
   <body class="font-inter">
     <header class="w-11/12 mx-auto">
+      <!-- static navbar start here ------------------------- -->
       <nav class="my-8 flex justify-between items-center">
         <img src="./assets/Logo.png" alt="" />
         <!-- <button class="btn btn-active">Sort by View</button> -->
@@ -46,10 +47,20 @@
           <input type="search" required placeholder="Search" />
         </label>
         <button class="btn btn-error">Blog</button>
+
+
       </nav>
       <hr class="border-2 border-gray-200" />
+      <!-- dynamic navbar start here------------------------- -->
       <nav id="category-container" class="my-8 flex gap-5 justify-center items-center"></nav>
     </header>
+
+    <main class="w-11/12 mx-auto">
+      <!-- dynamic card section start here------------------- -->
+       <section id="card-container" class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+
+       </section>
+    </main>
 
     <!-- js file link -->
     <script src="./js/script.js"></script>

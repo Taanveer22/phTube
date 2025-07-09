@@ -1,5 +1,6 @@
 console.log("conneted js");
 
+// dynamic navbar start here ---------------------------------------
 // load data from api
 const loadCategories = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -10,12 +11,13 @@ const loadCategories = () => {
 
 // show data in the ui
 // create dynamic button
+// append button in the category container
 const displayCategories = (paramCategory) => {
   //   console.log(paramCategory);
   const categoryContainer = document.getElementById("category-container");
   //   console.log(categoryContainer);
   paramCategory.forEach((item) => {
-    console.log(item);
+    // console.log(item);
 
     const button = document.createElement("button");
     button.classList = "btn";
@@ -24,5 +26,66 @@ const displayCategories = (paramCategory) => {
   });
 };
 
-// function invocation
+// dynamic main section start here -----------------------
+// load videos from api
+const loadVideos = () => {
+  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+    .then((res) => res.json())
+    .then((data) => displayVideos(data.videos))
+    .catch((error) => console.log(error));
+};
+
+// show videos in the ui
+// create dynamic card
+// append card in the card container
+const displayVideos = (paramVideo) => {
+  //   console.log(paramVideo);
+  const cardContainer = document.getElementById("card-container");
+  //   console.log(cardContainer);
+  paramVideo.forEach((item) => {
+    console.log(item);
+
+    const cardDiv = document.createElement("div");
+    cardDiv.innerHTML = `
+    <div class="card bg-base-100">
+        <figure class = "h-48">
+              <img
+                  src=${item.thumbnail}
+                  class= "h-full w-full object-cover"
+                  alt="videos" />
+        </figure>
+
+        <div class="flex gap-5 mt-5">
+            <div class="">
+                <img
+                    src=${item.authors[0].profile_picture}
+                    class="w-10 h-10 rounded-full object-cover"
+                >
+            </div>
+
+            <div>
+                <h2 class="font-bold text-base">${item.title}</h2>
+                <div class="flex gap-2 items-center">
+                    <h4 class="font-normal text-sm text-gray-400">
+                        ${item.authors[0].profile_name}
+                    </h4>
+                    <img
+                        src= ${'https://img.icons8.com/?size=100&id=D9RtvkuOe31p&format=png&color=000000'}
+                        class= "w-4 h-4"
+                    >
+                </div>
+                <p class="text-sm font-normal text-gray-400">
+                    ${item.others.views}
+                </p>
+            </div>
+        </div>
+
+    </div>
+    `;
+    cardContainer.append(cardDiv);
+  });
+};
+
+//load function invocation
 loadCategories();
+loadVideos();
