@@ -47,16 +47,19 @@ const displayVideos = (paramVideo) => {
 
     const cardDiv = document.createElement("div");
     cardDiv.innerHTML = `
-    <div class="card bg-base-100">
-        <figure class = "h-48">
+    <div class = "card bg-base-100">
+        <figure class = "h-48 relative">
               <img
-                  src=${item.thumbnail}
-                  class= "h-full w-full object-cover"
-                  alt="videos" />
+                  src = ${item.thumbnail}
+                  class = "h-full w-full object-cover"
+              />
+              <span class = "absolute bg-black text-white right-2 bottom-2 rounded p-1">
+                  ${item.others.posted_date}
+              </span>
         </figure>
 
-        <div class="flex gap-5 mt-5">
-            <div class="">
+        <div class = "flex gap-5 mt-5">
+            <div class = "">
                 <img
                     src=${item.authors[0].profile_picture}
                     class="w-10 h-10 rounded-full object-cover"
@@ -64,9 +67,9 @@ const displayVideos = (paramVideo) => {
             </div>
 
             <div>
-                <h2 class="font-bold text-base">${item.title}</h2>
-                <div class="flex gap-2 items-center">
-                    <h4 class="font-normal text-sm text-gray-400">
+                <h2 class = "font-bold text-base">${item.title}</h2>
+                <div class = "flex gap-2 items-center">
+                    <h4 class = "font-normal text-sm text-gray-400">
                         ${item.authors[0].profile_name}
                     </h4>
                     ${
@@ -75,7 +78,7 @@ const displayVideos = (paramVideo) => {
                         : ""
                     }
                 </div>
-                <p class="text-sm font-normal text-gray-400">
+                <p class = "text-sm font-normal text-gray-400">
                     ${item.others.views}
                 </p>
             </div>
