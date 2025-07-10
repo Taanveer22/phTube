@@ -1,4 +1,16 @@
 console.log("conneted js");
+// time utility function
+const getTimeString = (time) => {
+  console.log(time);
+  let day = parseInt(time / 86400);
+  let hour = parseInt(time / 3600);
+  let remainingSecond = time % 3600;
+  let minute = parseInt(remainingSecond / 60);
+  remainingSecond = remainingSecond % 60;
+
+  return ` ${day} day ${hour} hour ${minute} minute ${remainingSecond} second ago`;
+};
+// console.log(getTimeString(4000));
 
 // dynamic navbar start here ---------------------------------------
 // load data from api
@@ -53,9 +65,14 @@ const displayVideos = (paramVideo) => {
                   src = ${item.thumbnail}
                   class = "h-full w-full object-cover"
               />
-              <span class = "absolute bg-black text-white right-2 bottom-2 rounded p-1">
-                  ${item.others.posted_date}
-              </span>
+              ${
+                item.others.posted_date?.length === 0
+                  ? ""
+                  : `<span class = "absolute bg-black text-white right-2 bottom-2 rounded p-1">
+                          ${getTimeString(item.others.posted_date)}
+                    </span> `
+              }
+
         </figure>
 
         <div class = "flex gap-5 mt-5">
