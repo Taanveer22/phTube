@@ -69,10 +69,11 @@ const displayVideos = (paramVideo) => {
                     <h4 class="font-normal text-sm text-gray-400">
                         ${item.authors[0].profile_name}
                     </h4>
-                    <img
-                        src= ${'https://img.icons8.com/?size=100&id=D9RtvkuOe31p&format=png&color=000000'}
-                        class= "w-4 h-4"
-                    >
+                    ${
+                      item.authors[0].verified === true
+                        ? "<img src= 'https://img.icons8.com/?size=100&id=D9RtvkuOe31p&format=png&color=000000' class= 'w-4 h-4' >"
+                        : ""
+                    }
                 </div>
                 <p class="text-sm font-normal text-gray-400">
                     ${item.others.views}
