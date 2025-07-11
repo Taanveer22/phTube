@@ -1,18 +1,17 @@
 console.log("conneted js");
+
 // time utility function
 const getTimeString = (time) => {
-  console.log(time);
-  let day = parseInt(time / 86400);
+  // console.log(time);
   let hour = parseInt(time / 3600);
   let remainingSecond = time % 3600;
   let minute = parseInt(remainingSecond / 60);
   remainingSecond = remainingSecond % 60;
-
-  return ` ${day} day ${hour} hour ${minute} minute ${remainingSecond} second ago`;
+  return ` ${hour} hour ${minute} minute ${remainingSecond} second ago`;
 };
 // console.log(getTimeString(4000));
+// --------------------------------------------------------------------
 
-// dynamic navbar start here ---------------------------------------
 // load data from api
 const loadCategories = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -20,6 +19,26 @@ const loadCategories = () => {
     .then((data) => displayCategories(data.categories))
     .catch((error) => console.log(error));
 };
+// ------------------------------------------------------------
+
+// load card from api
+const loadVideos = () => {
+  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+    .then((res) => res.json())
+    .then((data) => displayVideos(data.videos))
+    .catch((error) => console.log(error));
+};
+// ---------------------------------------------------------------
+
+// load videos by category id from api
+const loadVideosByCategoryId = (id) => {
+  // alert(id);
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+    .then((res) => res.json())
+    .then((data) => displayVideos(data.category))
+    .catch((error) => console.log(error));
+};
+// -----------------------------------------------------------------------
 
 // show data in the ui
 // create dynamic button
@@ -29,23 +48,26 @@ const displayCategories = (paramCategory) => {
   const categoryContainer = document.getElementById("category-container");
   //   console.log(categoryContainer);
   paramCategory.forEach((item) => {
-    // console.log(item);
+    console.log(item);
 
-    const button = document.createElement("button");
-    button.classList = "btn";
-    button.innerText = item.category;
-    categoryContainer.append(button);
+    const buttonDiv = document.createElement("div");
+    buttonDiv.innerHTML = `
+                          <button
+                                  onclick =
+                                  loadVideosByCategoryId(${item.category_id})
+                                  class = "btn" >
+                                  ${item.category}
+                          </button>
+    `;
+    categoryContainer.append(buttonDiv);
+
+    // const button = document.createElement("button");
+    // button.classList = "btn";
+    // button.innerText = item.category;
+    // categoryContainer.append();
   });
 };
-
-// dynamic main section start here -----------------------
-// load videos from api
-const loadVideos = () => {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
-    .then((res) => res.json())
-    .then((data) => displayVideos(data.videos))
-    .catch((error) => console.log(error));
-};
+// -------------------------------------------------------------------
 
 // show videos in the ui
 // create dynamic card
@@ -53,9 +75,10 @@ const loadVideos = () => {
 const displayVideos = (paramVideo) => {
   //   console.log(paramVideo);
   const cardContainer = document.getElementById("card-container");
+  cardContainer.innerHTML = "";
   //   console.log(cardContainer);
   paramVideo.forEach((item) => {
-    console.log(item);
+    // console.log(item);
 
     const cardDiv = document.createElement("div");
     cardDiv.innerHTML = `
@@ -68,7 +91,7 @@ const displayVideos = (paramVideo) => {
               ${
                 item.others.posted_date?.length === 0
                   ? ""
-                  : `<span class = "absolute bg-black text-white right-2 bottom-2 rounded p-1">
+                  : `<span class = "absolute bg-black text-white text-xs right-2 bottom-2 rounded p-1">
                           ${getTimeString(item.others.posted_date)}
                     </span> `
               }
@@ -106,7 +129,9 @@ const displayVideos = (paramVideo) => {
     cardContainer.append(cardDiv);
   });
 };
+// -----------------------------------------------------------------------
 
 //load function invocation
 loadCategories();
 loadVideos();
+loadVideosByCategoryId();
