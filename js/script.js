@@ -76,10 +76,24 @@ const displayVideos = (paramVideo) => {
   //   console.log(paramVideo);
   const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
+  cardContainer.classList.add("grid");
   //   console.log(cardContainer);
+  if (paramVideo.length === 0) {
+    cardContainer.classList.remove("grid");
+    cardContainer.innerHTML = `
+        <div class="flex justify-center items-center">
+            <img class="" src="../assets/Icon.png">
+        </div>
+        <h3 class = "font-bold text-3xl text-center mt-5">
+            Oops!! Sorry, There is no content here
+        </h3>
+    `;
+  } else {
+    cardContainer.classList.add("grid");
+  }
+
   paramVideo.forEach((item) => {
     // console.log(item);
-
     const cardDiv = document.createElement("div");
     cardDiv.innerHTML = `
     <div class = "card bg-base-100">
