@@ -52,6 +52,16 @@ const loadVideosByCategoryId = (catId) => {
     .catch((error) => console.log(error));
 };
 
+// load video details button from api
+const loadModalDetails = async (videoId) => {
+  // console.log(videoId);
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`
+  );
+  const data = await res.json();
+  displayModalDetails(data.video);
+};
+
 // show data in the ui===============================
 // create dynamic button========================================
 // append button in the category container================================
@@ -149,10 +159,32 @@ const displayVideos = (paramVideo) => {
             </div>
         </div>
 
+        <button onclick = "loadModalDetails('${item.video_id}')" 
+                class = "btn btn-success"
+                >
+                      Details
+        </button>
+
     </div>
     `;
     cardContainer.append(cardDiv);
   });
+};
+
+// show modal details in the ui========================
+// create modal from daisy ui=============================
+// update dynamic modal content for every card==================
+const displayModalDetails = (modalData) => {
+  console.log(modalData);
+  const modalContent = document.getElementById("modal-content");
+  modalContent.innerHTML = `
+              <img class = "h-48 w-full object-cover" 
+                    src = "${modalData.thumbnail}" 
+              />
+              <h1 class = "my-3 text-2xl font-bold">${modalData.title}</h1>
+              <p>${modalData.description.slice(0, 200)}</p>
+  `;
+  document.getElementById("custom_Modal").showModal();
 };
 
 //load function invocation
