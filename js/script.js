@@ -30,8 +30,10 @@ const loadCategories = () => {
 };
 
 // load card from api======================================
-const loadVideos = () => {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+const loadVideos = (searchText = "") => {
+  fetch(
+    `https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`
+  )
     .then((res) => res.json())
     .then((data) => displayVideos(data.videos))
     .catch((error) => console.log(error));
@@ -175,7 +177,7 @@ const displayVideos = (paramVideo) => {
 // create modal from daisy ui=============================
 // update dynamic modal content for every card==================
 const displayModalDetails = (modalData) => {
-  console.log(modalData);
+  // console.log(modalData);
   const modalContent = document.getElementById("modal-content");
   modalContent.innerHTML = `
               <img class = "h-48 w-full object-cover" 
@@ -186,6 +188,14 @@ const displayModalDetails = (modalData) => {
   `;
   document.getElementById("custom_Modal").showModal();
 };
+
+// search functionality implementation==========================
+document
+  .getElementById("search-input")
+  .addEventListener("keyup", function (event) {
+    // console.log(event.target.value);
+    loadVideos(event.target.value);
+  });
 
 //load function invocation
 loadCategories();
