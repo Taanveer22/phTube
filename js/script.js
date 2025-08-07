@@ -1,6 +1,6 @@
 console.log("conneted js");
 
-// time utility function
+// time utility function=============================================
 const getTimeString = (time) => {
   // console.log(time);
   let hour = parseInt(time / 3600);
@@ -10,54 +10,66 @@ const getTimeString = (time) => {
   return ` ${hour} hour ${minute} minute ${remainingSecond} second ago`;
 };
 // console.log(getTimeString(4000));
-// --------------------------------------------------------------------
 
-// load data from api
+// removeActiveClass() utility function=================================
+const removeActiveClass = () => {
+  const btns = document.getElementsByClassName("category-btn");
+  // console.log(btns);
+  for (let btn of btns) {
+    // console.log(btn);
+    btn.classList.remove("active");
+  }
+};
+
+// load categories btn data from api===================================
 const loadCategories = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
     .then((res) => res.json())
     .then((data) => displayCategories(data.categories))
     .catch((error) => console.log(error));
 };
-// ------------------------------------------------------------
 
-// load card from api
+// load card from api======================================
 const loadVideos = () => {
   fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((res) => res.json())
     .then((data) => displayVideos(data.videos))
     .catch((error) => console.log(error));
 };
-// ---------------------------------------------------------------
 
-// load videos by category id from api
-const loadVideosByCategoryId = (id) => {
-  // alert(id);
-  fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+// load videos by category id from api==================================
+const loadVideosByCategoryId = (catId) => {
+  // alert(catId);
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${catId}`)
     .then((res) => res.json())
-    .then((data) => displayVideos(data.category))
+    .then((data) => {
+      removeActiveClass();
+      const activeBtn = document.getElementById(`btn-${catId}`);
+      activeBtn.classList.add("active");
+      // console.log(activeBtn);
+      displayVideos(data.category);
+    })
     .catch((error) => console.log(error));
 };
-// -----------------------------------------------------------------------
 
-// show data in the ui
-// create dynamic button
-// append button in the category container
+// show data in the ui===============================
+// create dynamic button========================================
+// append button in the category container================================
 const displayCategories = (paramCategory) => {
   //   console.log(paramCategory);
   const categoryContainer = document.getElementById("category-container");
   //   console.log(categoryContainer);
   paramCategory.forEach((item) => {
-    console.log(item);
+    // console.log(item);
 
     const buttonDiv = document.createElement("div");
     buttonDiv.innerHTML = `
-                          <button
-                                  onclick =
-                                  loadVideosByCategoryId(${item.category_id})
-                                  class = "btn" >
-                                  ${item.category}
-                          </button>
+    <button id = "btn-${item.category_id}"
+            onclick = "loadVideosByCategoryId(${item.category_id})"
+            class = "btn category-btn" 
+            >
+                    ${item.category}
+    </button>
     `;
     categoryContainer.append(buttonDiv);
 
@@ -67,11 +79,10 @@ const displayCategories = (paramCategory) => {
     // categoryContainer.append();
   });
 };
-// -------------------------------------------------------------------
 
-// show videos in the ui
-// create dynamic card
-// append card in the card container
+// show videos in the ui==================================
+// create dynamic card====================================
+// append card in the card container======================
 const displayVideos = (paramVideo) => {
   //   console.log(paramVideo);
   const cardContainer = document.getElementById("card-container");
@@ -143,7 +154,6 @@ const displayVideos = (paramVideo) => {
     cardContainer.append(cardDiv);
   });
 };
-// -----------------------------------------------------------------------
 
 //load function invocation
 loadCategories();

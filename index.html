@@ -4,15 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ph tube</title>
-    <!-- manual css link -->
+    <!-- raw css link -->
     <link rel="stylesheet" href="./css/style.css" />
-    <!-- inter font cdn -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
     <!-- daisy ui and tailwind cdn -->
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@5"
@@ -21,7 +14,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body class="font-inter">
+  <body class="google-font-inter">
     <header class="w-11/12 mx-auto">
       <!-- static navbar start here ------------------------- -->
       <nav class="my-8 flex justify-between items-center">
@@ -44,26 +37,27 @@
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" required placeholder="Search" />
+          <input id="search-input" type="search" placeholder="Search" />
         </label>
-        <button class="btn btn-error">Blog</button>
-
-
+        <button class="btn btn-error">Sort</button>
       </nav>
       <hr class="border-2 border-gray-200" />
       <!-- dynamic navbar start here------------------------- -->
-      <nav id="category-container" class="my-8 flex gap-5 justify-center items-center"></nav>
+      <nav
+        id="category-container"
+        class="my-8 flex gap-5 justify-center items-center"
+      ></nav>
     </header>
 
     <main class="w-11/12 mx-auto mb-8">
       <!-- dynamic card section start here------------------- -->
-       <section id="card-container" class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-
-       </section>
+      <section
+        id="card-container"
+        class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+      ></section>
     </main>
 
-    
-    <!-- js file link -->
+    <!--vanilla js file link -->
     <script src="./js/script.js"></script>
   </body>
 </html>
